@@ -1,10 +1,12 @@
 'use strict';
 
-const {
-    textsecure: {
-        WhisperMessage,
-        PreKeyWhisperMessage
-    }
-} = require('./WhisperTextProtocol.js');
+const path = require('path');
+const protobuf = require('protobufjs');
 
-module.exports = { WhisperMessage, PreKeyWhisperMessage };
+const protodir = path.resolve(__dirname, '../protos/');
+const p = protobuf.loadSync(path.join(protodir, 'WhisperTextProtocol.proto')).lookup('textsecure');
+
+module.exports = {
+    WhisperMessage: p.lookup('WhisperMessage'),
+    PreKeyWhisperMessage: p.lookup('PreKeyWhisperMessage')
+};
