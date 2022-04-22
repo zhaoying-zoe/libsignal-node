@@ -92,13 +92,13 @@ class SessionCipher {
             msg.previousCounter = session.currentRatchet.previousCounter;
             msg.ciphertext = crypto.encrypt(keys[0], data, keys[2].slice(0, 16));
             const msgBuf = protobufs.WhisperMessage.encode(msg).finish();
-            const macInput = Buffer.alloc(msgBuf.byteLength + (33 * 2) + 1);
+            const macInput = new Buffer(msgBuf.byteLength + (33 * 2) + 1);
             macInput.set(ourIdentityKey.pubKey);
             macInput.set(session.indexInfo.remoteIdentityKey, 33);
             macInput[33 * 2] = this._encodeTupleByte(VERSION, VERSION);
             macInput.set(msgBuf, (33 * 2) + 1);
             const mac = crypto.calculateMAC(keys[1], macInput);
-            const result = Buffer.alloc(msgBuf.byteLength + 9);
+            const result = new Buffer(msgBuf.byteLength + 9);
             result[0] = this._encodeTupleByte(VERSION, VERSION);
             result.set(msgBuf, 1);
             result.set(mac.slice(0, 8), msgBuf.byteLength + 1);
@@ -238,7 +238,7 @@ class SessionCipher {
         const keys = crypto.deriveSecrets(messageKey, Buffer.alloc(32),
                                           Buffer.from("WhisperMessageKeys"));
         const ourIdentityKey = await this.storage.getOurIdentity();
-        const macInput = Buffer.alloc(messageProto.byteLength + (33 * 2) + 1);
+        const macInput = new Buffer(messageProto.byteLength + (33 * 2) + 1);
         macInput.set(session.indexInfo.remoteIdentityKey);
         macInput.set(ourIdentityKey.pubKey, 33);
         macInput[33 * 2] = this._encodeTupleByte(VERSION, VERSION);
