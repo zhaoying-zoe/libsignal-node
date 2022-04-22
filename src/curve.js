@@ -35,13 +35,13 @@ exports.createKeyPair = function(privKey) {
     validatePrivKey(privKey);
     const keys = curveJs.generateKeyPair(privKey);
     // prepend version byte
-    var origPub = new Uint8Array(keys.public);
+    var origPub = new Uint8Array(keys.pubKey);
     var pub = new Uint8Array(33);
     pub.set(origPub, 1);
     pub[0] = 5;
     return {
         pubKey: Buffer.from(pub),
-        privKey: Buffer.from(keys.private)
+        privKey: Buffer.from(keys.privKey)
     };
 };
 
