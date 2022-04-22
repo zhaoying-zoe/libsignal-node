@@ -3,6 +3,7 @@
   "version": "2.0.1",
   "description": "Open Whisper Systems' libsignal for Node.js",
   "repository": "ForstaLabs/libsignal-node",
+  "main": "index.js",
   "keywords": [
     "signal",
     "whispersystems",
@@ -12,6 +13,9 @@
   "dependencies": {
     "protobufjs": "6.8.8"
   },
+  "files": [
+    "src/*"
+  ],
   "devDependencies": {
     "eslint": "6.0.1",
     "grunt": "1.0.4",
