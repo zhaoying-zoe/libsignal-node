@@ -190,7 +190,7 @@ class SessionRecord {
         let run = (data.version === undefined);
         for (let i = 0; i < migrations.length; ++i) {
             if (run) {
-                console.info("Migrating session to:", migrations[i].version);
+                // console.info("Migrating session to:", migrations[i].version);
                 migrations[i].migrate(data);
             } else if (migrations[i].version === data.version) {
                 run = true;
@@ -270,7 +270,7 @@ class SessionRecord {
             console.warn("Session already closed", session);
             return;
         }
-        console.info("Closing session:", session);
+        // console.info("Closing session:", session);
         session.indexInfo.closed = Date.now();
     }
 
@@ -278,7 +278,7 @@ class SessionRecord {
         if (!this.isClosed(session)) {
             console.warn("Session already open");
         }
-        console.info("Opening session:", session);
+        // console.info("Opening session:", session);
         session.indexInfo.closed = -1;
     }
 
